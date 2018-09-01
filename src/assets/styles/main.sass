@@ -1,0 +1,97 @@
+/**
+ * This injects Tailwind's base styles, which is a combination of
+ * Normalize.css and some additional base styles.
+ *
+ * You can see the styles here:
+ * https://github.com/tailwindcss/tailwindcss/blob/master/css/preflight.css
+ *
+ * If using `postcss-import`, use this import instead:
+ *
+ * @import "tailwindcss/preflight";
+ */
+@tailwind preflight
+
+//body
+//  background-image: url('../images/seattle-water.jpg')
+//  background-size: cover
+
+#app
+  font-family: 'Avenir', Helvetica, Arial, sans-serif
+  -webkit-font-smoothing: antialiased
+  -moz-osx-font-smoothing: grayscale
+  @apply text-grey-darkest m-2
+
+/**
+ * This injects any component classes registered by plugins.
+ *
+ * If using `postcss-import`, use this import instead:
+ *
+ * @import "tailwindcss/components";
+ */
+@tailwind components
+
+.form-group
+  @apply bg-white shadow-md rounded px-8 pt-6 pb-8
+
+  .form-group--input
+    @apply shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker leading-tight
+
+    &:focus
+      @apply outline-none shadow-outline
+
+  .form-group--label
+    @apply block text-grey-darker text-sm font-bold mb-2
+
+.nav-group
+  @apply flex flex-wrap items-center bg-grey text-lg rounded h-auto p-2 mb-2 w-full
+
+  .nav-group--button
+    @apply flex-auto bg-grey-light text-grey-darker text-center shadow rounded px-4 py-2 m-2
+    @apply border-b-4 border-grey-darkest
+
+    &:hover
+      @apply bg-grey-darker text-grey-lighter shadow-lg
+
+  .router-link-exact-active
+    @apply bg-grey-dark text-grey-lightest shadow-md
+
+/**
+ * Here you would add any of your custom component classes; stuff that you'd
+ * want loaded *before* the utilities so that the utilities could still
+ * override them.
+ *
+ * Example:
+ *
+ * .btn { ... }
+ * .form-input { ... }
+ *
+ * Or if using a preprocessor or `postcss-import`:
+ *
+ * @import "components/buttons";
+ * @import "components/forms";
+ */
+
+/**
+ * This injects all of Tailwind's utility classes, generated based on your
+ * config file.
+ *
+ * If using `postcss-import`, use this import instead:
+ *
+ * @import "tailwindcss/utilities";
+ */
+@tailwind utilities
+
+/**
+ * Here you would add any custom utilities you need that don't come out of the
+ * box with Tailwind.
+ *
+ * Example :
+ *
+ * .bg-pattern-graph-paper { ... }
+ * .skew-45 { ... }
+ *
+ * Or if using a preprocessor or `postcss-import`:
+ *
+ * @import "utilities/background-patterns";
+ * @import "utilities/skew-transforms";
+ */
