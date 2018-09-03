@@ -4,8 +4,9 @@
       <form
           id="contact-form"
           class="form-group"
-          @submit="checkForm"
+          @submit.prevent="checkForm"
       >
+        <!-- Name -->
         <div class="mb-4">
           <label
               class="form-group--label"
@@ -27,6 +28,8 @@
             Please enter your name.
           </p>
         </div>
+
+        <!-- Email -->
         <div class="mb-4">
           <label
               class="form-group--label"
@@ -48,6 +51,8 @@
             Please enter your email.
           </p>
         </div>
+
+        <!-- Subject -->
         <div class="mb-4">
           <label
               class="form-group--label"
@@ -69,6 +74,8 @@
             Please enter a subject.
           </p>
         </div>
+
+        <!-- Message -->
         <div class="mb-4">
           <label
               class="form-group--label"
@@ -90,12 +97,14 @@
             Please enter a message.
           </p>
         </div>
+
+        <!-- Submit -->
+        <!-- TODO: Should prevent user from submitting multiple requests (maybe through JQuery) -->
         <div class="mt-6 flex justify-end">
           <input
               class="bg-blue hover:bg-blue-light text-white font-bold py-2 px-4 border-b-4 border-blue-dark hover:border-blue rounded focus:outline-none focus:shadow-outline"
-              :disabled="submitting"
               type="submit"
-              value="Send Message"
+              value="Send message"
           >
         </div>
         <div class="hidden">
@@ -119,7 +128,8 @@
             v-if="unsuccessfullySent"
             class="font-bold text-center text-red text-xs mt-2"
         >
-          Something went wrong…please email jvanderen1@gmail.com
+          Something went wrong…please email
+          <a href="mailto:jvanderen1@gmail.com">jvanderen1@gmail.com</a>
         </p>
       </form>
     </div>
@@ -143,9 +153,19 @@
     private subjectError: boolean = false;
     private messageError: boolean = false;
 
-    private submitting: boolean = false;
     private successfullySent: boolean = false;
     private unsuccessfullySent: boolean = false;
+
+    private beforeCheck() {
+      this.successfullySent = false;
+      this.unsuccessfullySent = false;
+    }
+
+    private checkSpam() {
+      if ( this.spamDetection.length > 0 ) {
+        window.location.replace( 'https://theuselessweb.com/' );
+      }
+    }
 
     private sendEmail() {
       const data = {
@@ -171,19 +191,10 @@
         } );
     }
 
-    private checkForm() {
-      if (this.submitting) {
-        return;
-      } else {
-        this.submitting = true;
-      }
+    private checkForm( e: Event ) {
+      this.beforeCheck();
 
-      this.successfullySent = false;
-      this.unsuccessfullySent = false;
-
-      if ( this.spamDetection.length > 0 ) {
-        window.location.replace( 'https://theuselessweb.com/' );
-      }
+      this.checkSpam();
 
       this.nameError = ( this.name.length < 1 );
       this.emailError = ( this.email.length < 1 );
@@ -194,7 +205,7 @@
         this.sendEmail();
       }
 
-      this.submitting = false;
+      return false;
     }
   }
 </script>
