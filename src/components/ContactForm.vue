@@ -99,13 +99,18 @@
         </div>
 
         <!-- Submit -->
-        <!-- TODO: Should prevent user from submitting multiple requests (maybe through JQuery) -->
-        <div class="mt-6 flex justify-end">
-          <input
-              class="bg-blue hover:bg-blue-light text-white font-bold py-2 px-4 border-b-4 border-blue-dark hover:border-blue rounded focus:outline-none focus:shadow-outline"
+        <div
+            class="mt-6 flex justify-end"
+        >
+          <button
+              class="flex bg-blue hover:bg-blue-light text-white font-bold py-2 px-4 border-b-4 border-blue-dark hover:border-blue rounded focus:outline-none focus:shadow-outline ld-ext-right"
               type="submit"
-              value="Send message"
+              v-bind:class="{'running': submitting}"
+              :disabled="submitting"
           >
+            {{ submitting ? 'Sending…' : 'Send Message' }}
+            <span class="ld ld-ring ld-spin "></span>
+          </button>
         </div>
         <div class="hidden">
           <label
@@ -153,6 +158,8 @@
     private subjectError: boolean = false;
     private messageError: boolean = false;
 
+    private submitting: boolean = false;
+
     private successfullySent: boolean = false;
     private unsuccessfullySent: boolean = false;
 
@@ -185,24 +192,41 @@
           console.log( response );
 
           this.name = this.email = this.subject = this.message = '';
+          this.submitting = false;
         } )
         .catch( (error) => {
           this.unsuccessfullySent = true;
           console.log(error);
+
+          this.submitting = false;
         } );
     }
 
-    private checkForm( e: Event ) {
-      this.beforeCheck();
-
-      this.checkSpam();
-
+    private setErrors() {
       this.nameError = ( this.name.length < 1 );
       this.emailError = ( this.email.length < 1 );
       this.subjectError = ( this.subject.length < 1 );
       this.messageError = ( this.message.length < 1 );
 
-      if ( !this.nameError && !this.emailError && !this.subjectError && !this.messageError ) {
+      return ( this.nameError || this.emailError || this.subjectError || this.messageError );
+    }
+
+    private checkForm( e: Event ) {
+      if (this.submitting) {
+        return false;
+      } else {
+        this.submitting = true;
+      }
+
+      this.beforeCheck();
+
+      this.checkSpam();
+
+      const anyErrors = this.setErrors();
+
+      if ( anyErrors ) {
+        this.submitting = false;
+      } else {
         this.sendEmail();
       }
 
