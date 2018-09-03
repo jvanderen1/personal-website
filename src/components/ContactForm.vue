@@ -168,6 +168,7 @@
     }
 
     private sendEmail() {
+      const apiEndpoint = 'https://vanderen-contact.prod.with-datafire.io/contact';
       const data = {
         name: this.name,
         email: this.email,
@@ -176,7 +177,7 @@
       };
 
       axios.post(
-        'https://vanderen-contact.prod.with-datafire.io/contact',
+        apiEndpoint,
         data,
       )
         .then( (response) => {
