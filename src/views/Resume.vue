@@ -5,7 +5,7 @@
     </h1>
     <iframe
         class="resume--pdf"
-        src="https://app.box.com/embed/s/4o6g8svhbge5wqbk6d1g3cb2ll19o7be"
+        src="https://app.box.com/embed/s/mvonyupt7imqykjmer3v1mevx26i7fgi"
         frameborder="0">
     </iframe>
   </div>
