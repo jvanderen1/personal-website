@@ -24,6 +24,6 @@
     display: block
     position: relative
     width: 85%
-    height: stretch
+    height: 100vh
     margin: 0 auto
 </style>
