@@ -59,7 +59,7 @@
           Welcome
         </h1>
         <p class="text-center h-24">
-          A simple website made out of curiosity and love for programming
+          A simple, responsive website made out of curiosity and love for programming
         </p>
       </div>
       <LoveVueIcons/>
