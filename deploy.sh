@@ -10,7 +10,7 @@ npm run build:modern
 cd dist
 
 # if you are deploying to a custom domain
-echo 'vanderen.me' > CNAME
+# echo 'vanderen.me' > CNAME
 
 git init
 git add -A
